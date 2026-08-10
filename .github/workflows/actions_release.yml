@@ -1,0 +1,38 @@
+name: Release GitHub Actions
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag for the release"
+        required: true
+      node_version:
+        description: "Node.js version to use for building actions"
+        required: false
+        default: "24"
+      working_directory:
+        description: "Comma-separated list of action directories to build"
+        required: false
+        default: ".github/actions/compute-sha256, .github/actions/create-container_based-predicate, .github/actions/detect-workflow-js, .github/actions/generate-attestations, .github/actions/privacy-check, .github/actions/sign-attestations, .github/actions/verify-token"
+      script:
+        description: "Build script to run in each action directory"
+        required: false
+        default: "npm run all"
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    permissions:
+      actions: read
+      id-token: write
+      contents: write
+
+    uses: step-security/reusable-workflows/.github/workflows/actions_release.yaml@v1
+    with:
+      tag: "${{ github.event.inputs.tag }}"
+      node_version: "${{ github.event.inputs.node_version }}"
+      setup_node: true
+      working_directory: "${{ github.event.inputs.working_directory }}"
+      script: "${{ github.event.inputs.script }}"
