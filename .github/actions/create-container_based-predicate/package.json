@@ -1,0 +1,42 @@
+{
+  "name": "create-docker_based-predicate",
+  "version": "2.1.0",
+  "private": true,
+  "description": "GitHub action to create a SLSA predicate given a build definition.",
+  "main": "lib/main.js",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write '**/*.ts'",
+    "format-check": "prettier --check '**/*.ts'",
+    "package": "ncc build --external encoding --source-map",
+    "lint": "eslint --max-warnings 0 src/**/*.ts",
+    "test": "jest",
+    "all": "npm run format && npm run lint && npm run build && npm run package"
+  },
+  "keywords": [
+    "actions",
+    "node",
+    "setup"
+  ],
+  "devDependencies": {
+    "@types/jest": "29.5.14",
+    "@types/make-fetch-happen": "10.0.4",
+    "@types/node": "20.17.19",
+    "@typescript-eslint/eslint-plugin": "6.21.0",
+    "@typescript-eslint/parser": "6.21.0",
+    "@vercel/ncc": "0.38.3",
+    "eslint": "8.57.1",
+    "eslint-plugin-github": "4.10.2",
+    "eslint-plugin-prettier": "5.2.3",
+    "jest": "29.7.0",
+    "prettier": "3.5.1",
+    "ts-jest": "29.2.5",
+    "typescript": "5.7.3"
+  },
+  "dependencies": {
+    "@actions/core": "^2.0.0",
+    "@actions/github": "6.0.0",
+    "axios": "^1.19.0",
+    "tscommon": "file:../tscommon/tscommon-0.0.0.tgz"
+  }
+}

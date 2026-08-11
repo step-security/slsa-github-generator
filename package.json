@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "format-yaml": "prettier --write '**/*.yml'  '**/*.yaml'",
+    "format-yaml-check": "prettier --check  '**/*.yml'  '**/*.yaml'"
+  },
+  "devDependencies": {
+    "prettier": "3.5.1"
+  }
+}

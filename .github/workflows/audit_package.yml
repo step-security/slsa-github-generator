@@ -1,0 +1,43 @@
+name: NPM Audit Fix Run
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Use --force flag for npm audit fix?"
+        required: true
+        type: boolean
+      base_branch:
+        description: "Specify a base branch"
+        required: false
+        default: "main"
+      node_version:
+        description: "Node.js version to use"
+        required: false
+        default: "24"
+      working_directory:
+        description: "Working directory to run audit fix in (optional)"
+        required: false
+        default: ".github/actions/compute-sha256, .github/actions/create-container_based-predicate, .github/actions/detect-workflow-js, .github/actions/generate-attestations, .github/actions/privacy-check, .github/actions/sign-attestations, .github/actions/verify-token"
+      script:
+        description: "Build script to run after audit fix"
+        required: false
+        default: "npm run all"
+  schedule:
+    - cron: "0 0 * * 1"
+
+permissions:
+  contents: write
+  pull-requests: write
+  packages: read
+  issues: write
+
+jobs:
+  audit-fix:
+    uses: step-security/reusable-workflows/.github/workflows/audit_fix.yml@v1
+    with:
+      force: ${{ inputs.force || false }}
+      base_branch: ${{ inputs.base_branch || 'main' }}
+      node_version: ${{ inputs.node_version || '24' }}
+      working_directory: ${{ inputs.working_directory || '.github/actions/compute-sha256, .github/actions/create-container_based-predicate, .github/actions/detect-workflow-js, .github/actions/generate-attestations, .github/actions/privacy-check, .github/actions/sign-attestations, .github/actions/verify-token' }}
+      script: ${{ inputs.script || 'npm run all' }}

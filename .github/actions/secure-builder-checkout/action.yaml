@@ -1,0 +1,92 @@
+# Copyright 2023 SLSA Authors
+# Copyright 2026 StepSecurity
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: "secure-builder-checkout"
+description: "Checkout the builder repository"
+
+inputs:
+  repository:
+    description: "The repository to check out."
+    required: true
+  ref:
+    description: "The ref to checkout."
+    required: true
+  path:
+    # Same argument to https://github.com/actions/checkout.
+    description: "Relative path under $GITHUB_WORKSPACE to place the repository."
+    required: true
+  token:
+    description: "Token used to fetch the repository."
+    required: false
+    default: ${{ github.token }}
+runs:
+  using: "composite"
+  steps:
+    - name: Subscription check
+      env:
+        REPO_PRIVATE: ${{ github.event.repository.private }}
+      run: |
+        # validate subscription status
+        UPSTREAM="slsa-framework/slsa-github-generator"
+        ACTION_REPO="${GITHUB_ACTION_REPOSITORY:-}"
+        DOCS_URL="https://docs.stepsecurity.io/actions/stepsecurity-maintained-actions"
+
+        echo ""
+        echo -e "\033[1;36mStepSecurity Maintained Action\033[0m"
+        echo "Secure drop-in replacement for $UPSTREAM"
+        if [ "$REPO_PRIVATE" = "false" ]; then
+          echo -e "\033[32m✓ Free for public repositories\033[0m"
+        fi
+        echo -e "\033[36mLearn more:\033[0m $DOCS_URL"
+        echo ""
+
+        if [ "$REPO_PRIVATE" != "false" ]; then
+          SERVER_URL="${GITHUB_SERVER_URL:-https://github.com}"
+
+          if [ "$SERVER_URL" != "https://github.com" ]; then
+            BODY=$(printf '{"action":"%s","ghes_server":"%s"}' "$ACTION_REPO" "$SERVER_URL")
+          else
+            BODY=$(printf '{"action":"%s"}' "$ACTION_REPO")
+          fi
+
+          API_URL="https://agent.api.stepsecurity.io/v1/github/$GITHUB_REPOSITORY/actions/maintained-actions-subscription"
+
+          RESPONSE=$(curl --max-time 3 -s -w "%{http_code}" \
+            -X POST \
+            -H "Content-Type: application/json" \
+            -d "$BODY" \
+            "$API_URL" -o /dev/null) && CURL_EXIT_CODE=0 || CURL_EXIT_CODE=$?
+
+          if [ $CURL_EXIT_CODE -ne 0 ]; then
+            echo "Timeout or API not reachable. Continuing to next step."
+          elif [ "$RESPONSE" = "403" ]; then
+            echo -e "::error::\033[1;31mThis action requires a StepSecurity subscription for private repositories.\033[0m"
+            echo -e "::error::\033[31mLearn how to enable a subscription: $DOCS_URL\033[0m"
+            exit 1
+          fi
+        fi
+      shell: bash
+    # TODO(968): verify the hash is on the main branch
+    # and has an associated release. This will require exceptions
+    # for e2e tests.
+    - name: Checkout the repository
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      with:
+        repository: ${{ inputs.repository }}
+        ref: ${{ inputs.ref }}
+        token: ${{ inputs.token }}
+        path: ${{ inputs.path }}
+        persist-credentials: false
+        fetch-depth: 1

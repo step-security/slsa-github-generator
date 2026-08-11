@@ -1,0 +1,36 @@
+{
+  "name": "compute-sha256",
+  "version": "2.1.0",
+  "private": true,
+  "description": "Compute a sha256 of a file.",
+  "main": "lib/main.js",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write '**/*.ts'",
+    "format-check": "prettier --check '**/*.ts'",
+    "package": "ncc build --external encoding --source-map",
+    "lint": "eslint --max-warnings 0 src/**/*.ts",
+    "all": "npm run format && npm run lint && npm run build && npm run package"
+  },
+  "keywords": [
+    "actions",
+    "node",
+    "setup"
+  ],
+  "dependencies": {
+    "@actions/core": "^2.0.0",
+    "axios": "^1.19.0",
+    "tscommon": "file:../tscommon/tscommon-0.0.0.tgz"
+  },
+  "devDependencies": {
+    "@types/node": "20.17.19",
+    "@typescript-eslint/eslint-plugin": "6.21.0",
+    "@typescript-eslint/parser": "6.21.0",
+    "@vercel/ncc": "0.38.3",
+    "eslint": "8.57.1",
+    "eslint-plugin-github": "4.10.2",
+    "eslint-plugin-prettier": "5.2.3",
+    "prettier": "3.5.1",
+    "typescript": "5.7.3"
+  }
+}
