@@ -19,7 +19,7 @@
     "test": "jest"
   },
   "keywords": [],
-  "author": "",
+  "author": "step-security",
   "license": "Apache-2.0",
   "dependencies": {
     "@actions/core": "^2.0.0",

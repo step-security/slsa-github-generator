@@ -20,7 +20,7 @@
     "tscommon": "file:../tscommon/tscommon-0.0.0.tgz"
   },
   "keywords": [],
-  "author": "",
+  "author": "step-security",
   "license": "Apache-2.0",
   "devDependencies": {
     "@types/jest": "^29.5.14",

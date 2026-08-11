@@ -43,7 +43,7 @@ jobs:
         run: |
           INPUT="${{ inputs.working_directories || '.github/actions/compute-sha256,.github/actions/create-container_based-predicate,.github/actions/detect-workflow-js,.github/actions/generate-attestations,.github/actions/privacy-check,.github/actions/sign-attestations,.github/actions/verify-token' }}"
           DIRS=$(echo "$INPUT" | tr ',' '\n' | sed 's/^ *//;s/ *$//' | jq -R -s -c 'split("\n") | map(select(length > 0))')
-          echo "directories=$DIRS" >> $GITHUB_OUTPUT
+          echo "directories=$DIRS" >> "$GITHUB_OUTPUT"
 
   audit-fix:
     needs: prepare

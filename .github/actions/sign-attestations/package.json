@@ -13,7 +13,7 @@
     "all": "npm ci && npm run format && npm run lint && npm run build && npm run package"
   },
   "keywords": [],
-  "author": "",
+  "author": "step-security",
   "license": "ISC",
   "devDependencies": {
     "@types/make-fetch-happen": "^10.0.4",
