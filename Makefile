@@ -94,6 +94,7 @@ yaml-format: node_modules/.installed ## Runs code formatter for YAML files.
 				'*.yaml' '**/*.yaml' \
 				'*.yml' '**/*.yml' \
 				':!:third_party/*' ':!:third_party/**/*' \
+				':!:.github/workflows/*' ':!:.github/workflows/**/*' \
 		); \
 		for path in $$yml_files; do \
 			./node_modules/.bin/prettier --write $$path; \

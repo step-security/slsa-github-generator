@@ -2,7 +2,7 @@ name: Auto Cherry-Pick from Upstream
 
 on:
   workflow_run:
-    workflows: [ "Release GitHub Actions" ]
+    workflows: ["Release GitHub Actions"]
     types:
       - completed
 
@@ -26,7 +26,7 @@ on:
         default: "npm run all"
 
   pull_request:
-    types: [ opened, synchronize, labeled ]
+    types: [opened, synchronize, labeled]
 
 permissions:
   contents: write
