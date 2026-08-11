@@ -1,0 +1,56 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /.github/actions/compute-sha256
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /.github/actions/create-container_based-predicate
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /.github/actions/detect-workflow-js
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /.github/actions/generate-attestations
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /.github/actions/privacy-check
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /.github/actions/sign-attestations
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /.github/actions/tscommon
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /.github/actions/verify-token
+    schedule:
+      interval: daily
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: daily
