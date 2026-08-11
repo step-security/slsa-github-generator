@@ -17,7 +17,9 @@
 
 set -euo pipefail
 
+# shellcheck source=/dev/null
 source "./.github/workflows/scripts/e2e-assert.sh"
+# shellcheck source=/dev/null
 source "./.github/workflows/scripts/e2e-verify.common.sh"
 
 echo "PREDICATE: $PREDICATE"

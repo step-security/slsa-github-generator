@@ -84,7 +84,7 @@ ts-test: ## Run TypeScript tests.
 #####################################################################
 
 .PHONY: format
-format: yaml-format md-format ts-format go-format shfmt autogen ## Runs all code formatters.
+format: yaml-format md-format ts-format go-format shfmt ## Runs all code formatters.
 
 .PHONY: yaml-format
 yaml-format: node_modules/.installed ## Runs code formatter for YAML files.
@@ -140,27 +140,8 @@ COPYRIGHT ?= "SLSA Authors"
 LICENSE ?= apache
 
 .PHONY: autogen
-autogen: ## Runs autogen on code files.
-	@set -euo pipefail; \
-		code_files=$$( \
-			git ls-files \
-				'*.go' '**/*.go' \
-				'*.ts' '**/*.ts' \
-				'*.sh' '**/*.sh' \
-				'*.yaml' '**/*.yaml' \
-				'*.yml' '**/*.yml' \
-				'Makefile' \
-				':!:third_party/*' ':!:third_party/**/*' \
-		); \
-		git_root="$$(git rev-parse --show-toplevel)"; \
-		for filename in $${code_files}; do \
-			if ! ( head "$${filename}" | grep -iL $(COPYRIGHT) > /dev/null ); then \
-				echo $${filename}; \
-				cd $$(dirname "$${filename}"); \
-				"$${git_root}/third_party/autogen/autogen.sh" -i --no-code --no-tlc -c $(COPYRIGHT) -l $(LICENSE) $$(basename "$${filename}"); \
-				cd - > /dev/null; \
-			fi; \
-		done
+autogen: ## No-op: autogen not used in this fork.
+	@true
 
 
 .PHONY: shfmt
