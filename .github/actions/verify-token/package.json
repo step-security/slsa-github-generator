@@ -24,16 +24,17 @@
   "dependencies": {
     "@actions/core": "^2.0.0",
     "@actions/github": "^8.0.0",
-    "axios": "^1.19.0",
     "@octokit/webhooks-types": "^7.6.1",
+    "axios": "^1.19.0",
     "sigstore": "^4.1.1",
     "tscommon": "file:../tscommon/tscommon-0.0.0.tgz",
     "yaml": "^2.5.1"
   },
   "devDependencies": {
-    "@types/node": "^20.17.19",
+    "@babel/preset-env": "^7.29.7",
     "@types/jest": "^29.5.14",
     "@types/make-fetch-happen": "^10.0.4",
+    "@types/node": "^20.17.19",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "@vercel/ncc": "^0.38.3",
