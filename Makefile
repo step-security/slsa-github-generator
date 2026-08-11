@@ -251,6 +251,18 @@ yamllint: ## Runs the yamllint linter.
 ## Maintenance
 #####################################################################
 
+.PHONY: npm-install
+npm-install: ## Runs npm install in all action directories simultaneously.
+	@set -e;\
+		pids=();\
+		for action in $(NODE20_ACTIONS) tscommon; do \
+			(cd .github/actions/$$action && npm install) & \
+			pids+=($$!);\
+		done;\
+		for pid in "$${pids[@]}"; do \
+			wait $$pid || exit 1;\
+		done
+
 .PHONY: clean
 clean: ## Delete temporary files.
 	rm -rf node_modules

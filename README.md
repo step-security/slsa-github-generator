@@ -2,8 +2,6 @@
 
 # SLSA GitHub Generator
 
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/step-security/slsa-github-generator/badge)](https://api.securityscorecards.dev/projects/github.com/step-security/slsa-github-generator)
-
 Secure drop-in replacement for [slsa-framework/slsa-github-generator](https://github.com/slsa-framework/slsa-github-generator), maintained by [StepSecurity](https://docs.stepsecurity.io/actions/stepsecurity-maintained-actions).
 
 ## Actions
