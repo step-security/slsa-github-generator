@@ -94,8 +94,8 @@ jobs:
 
       - name: actionlint
         env:
-          ACTIONLINT_VERSION: "1.7.0"
-          ACTIONLINT_CHECKSUM: "8aae9148f61952d11a97651852fdc7dffd2b762ed3cdd28b3c2232ae5f55d4db"
+          ACTIONLINT_VERSION: "1.7.12"
+          ACTIONLINT_CHECKSUM: "8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8"
         run: |
           set -euo pipefail
 
