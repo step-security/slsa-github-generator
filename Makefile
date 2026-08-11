@@ -263,6 +263,30 @@ npm-install: ## Runs npm install in all action directories simultaneously.
 			wait $$pid || exit 1;\
 		done
 
+.PHONY: npm-audit-fix
+npm-audit-fix: ## Runs npm audit fix in all action directories simultaneously.
+	@set -e;\
+		pids=();\
+		for action in $(NODE20_ACTIONS) tscommon; do \
+			(cd .github/actions/$$action && npm audit fix) & \
+			pids+=($$!);\
+		done;\
+		for pid in "$${pids[@]}"; do \
+			wait $$pid || exit 1;\
+		done
+
+.PHONY: osv-scan
+osv-scan: ## Runs osv-scanner on package-lock.json in all action directories simultaneously.
+	@set -e;\
+		pids=();\
+		for action in $(NODE20_ACTIONS) tscommon; do \
+			(cd .github/actions/$$action && osv-scanner -L package-lock.json) & \
+			pids+=($$!);\
+		done;\
+		for pid in "$${pids[@]}"; do \
+			wait $$pid || exit 1;\
+		done
+
 .PHONY: clean
 clean: ## Delete temporary files.
 	rm -rf node_modules

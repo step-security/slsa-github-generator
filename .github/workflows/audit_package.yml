@@ -15,10 +15,10 @@ on:
         description: "Node.js version to use"
         required: false
         default: "24"
-      working_directory:
-        description: "Working directory to run audit fix in (optional)"
+      working_directories:
+        description: "Comma-separated list of working directories to run audit fix in"
         required: false
-        default: ".github/actions/compute-sha256, .github/actions/create-container_based-predicate, .github/actions/detect-workflow-js, .github/actions/generate-attestations, .github/actions/privacy-check, .github/actions/sign-attestations, .github/actions/verify-token"
+        default: ".github/actions/compute-sha256,.github/actions/create-container_based-predicate,.github/actions/detect-workflow-js,.github/actions/generate-attestations,.github/actions/privacy-check,.github/actions/sign-attestations,.github/actions/verify-token"
       script:
         description: "Build script to run after audit fix"
         required: false
@@ -33,11 +33,27 @@ permissions:
   issues: write
 
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      directories: ${{ steps.set-matrix.outputs.directories }}
+    steps:
+      - name: Build directory matrix
+        id: set-matrix
+        run: |
+          INPUT="${{ inputs.working_directories || '.github/actions/compute-sha256,.github/actions/create-container_based-predicate,.github/actions/detect-workflow-js,.github/actions/generate-attestations,.github/actions/privacy-check,.github/actions/sign-attestations,.github/actions/verify-token' }}"
+          DIRS=$(echo "$INPUT" | tr ',' '\n' | sed 's/^ *//;s/ *$//' | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "directories=$DIRS" >> "$GITHUB_OUTPUT"
+
   audit-fix:
+    needs: prepare
+    strategy:
+      matrix:
+        directory: ${{ fromJson(needs.prepare.outputs.directories) }}
     uses: step-security/reusable-workflows/.github/workflows/audit_fix.yml@v1
     with:
       force: ${{ inputs.force || false }}
       base_branch: ${{ inputs.base_branch || 'main' }}
       node_version: ${{ inputs.node_version || '24' }}
-      working_directory: ${{ inputs.working_directory || '.github/actions/compute-sha256, .github/actions/create-container_based-predicate, .github/actions/detect-workflow-js, .github/actions/generate-attestations, .github/actions/privacy-check, .github/actions/sign-attestations, .github/actions/verify-token' }}
+      working_directory: ${{ matrix.directory }}
       script: ${{ inputs.script || 'npm run all' }}
