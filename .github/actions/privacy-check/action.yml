@@ -22,7 +22,6 @@ inputs:
     default: ${{ github.token }}
   override:
     description: "If set to true, allows the action to complete successfully even if the repo is private."
-    type: boolean
     required: false
     default: false
   error_message:

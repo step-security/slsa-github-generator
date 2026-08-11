@@ -39,13 +39,11 @@ inputs:
     required: true
   allow-private-repository:
     description: "If set to true, allows the action to complete successfully even if the repo is private."
-    type: boolean
     required: false
     default: false
   # NOTE: Used for adversarial tests during release. See RELEASE.md.
   testing:
     description: "Temporary flag used to support pre-submit testing. DO NOT USE"
-    type: boolean
     required: false
     default: false
 

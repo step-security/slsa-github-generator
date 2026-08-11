@@ -17,7 +17,7 @@ name: "Secure folder upload"
 description: "Upload a folder as a tarball and outputs its SHA256"
 inputs:
   name:
-    description:: >
+    description: >
       Artifact name.
       The caller is responsible to provide a name that is unique and does not collise with other artifacts.
       An example is to use `${RNG}-artifact`.

@@ -8593,6 +8593,7 @@ module.exports = {
 "use strict";
 
 // Copyright 2023 SLSA Authors
+// Copyright 2026 StepSecurity
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -8766,6 +8767,7 @@ function safePromises_stat(inputFn) {
 "use strict";
 
 // Copyright 2023 SLSA Authors
+// Copyright 2026 StepSecurity
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
