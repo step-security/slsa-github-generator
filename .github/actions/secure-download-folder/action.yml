@@ -76,7 +76,7 @@ runs:
       shell: bash
     - name: Compute a random value
       id: rng
-      uses: step-security/slsa-github-generator/.github/actions/rng@release
+      uses: step-security/slsa-github-generator/.github/actions/rng@bf85a0793176542b4d633d3b9559016fa6c815fb #v2.1.0
 
     - name: Download the artifact
       uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
@@ -86,7 +86,7 @@ runs:
 
     - name: Compute the hash
       id: compute
-      uses: step-security/slsa-github-generator/.github/actions/compute-sha256@release
+      uses: step-security/slsa-github-generator/.github/actions/compute-sha256@bf85a0793176542b4d633d3b9559016fa6c815fb #v2.1.0
       with:
         path: "${{ steps.rng.outputs.random }}/folder.tgz"
 
