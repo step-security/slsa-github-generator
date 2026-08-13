@@ -105,7 +105,7 @@ runs:
         fi
       shell: bash
     - name: Checkout builder repository
-      uses: step-security/slsa-github-generator/.github/actions/secure-builder-checkout@release
+      uses: step-security/slsa-github-generator/.github/actions/secure-builder-checkout@bf85a0793176542b4d633d3b9559016fa6c815fb # v2.1.0
       with:
         repository: ${{ inputs.repository }}
         ref: ${{ inputs.ref }}
