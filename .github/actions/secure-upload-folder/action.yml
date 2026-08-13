@@ -105,7 +105,7 @@ runs:
 
     - name: Upload the artifact
       id: upload
-      uses: step-security/slsa-github-generator/.github/actions/secure-upload-artifact@bf85a0793176542b4d633d3b9559016fa6c815fb #v2.1.0
+      uses: step-security/slsa-github-generator/.github/actions/secure-upload-artifact@bf85a0793176542b4d633d3b9559016fa6c815fb # v2.1.0
       with:
         name: "${{ inputs.name }}"
         path: "${{ steps.create.outputs.tarball-path }}"

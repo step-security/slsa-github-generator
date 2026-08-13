@@ -130,7 +130,7 @@ runs:
 
     - name: Compute the hash
       id: compute
-      uses: step-security/slsa-github-generator/.github/actions/compute-sha256@bf85a0793176542b4d633d3b9559016fa6c815fb #v2.1.0
+      uses: step-security/slsa-github-generator/.github/actions/compute-sha256@bf85a0793176542b4d633d3b9559016fa6c815fb # v2.1.0
       with:
         path: "${{ steps.validate-path.outputs.file_path }}"
 
